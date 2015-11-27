@@ -6,7 +6,7 @@
  Calculate HUM value
 }
 \description{
-  This function calculates the features weights using the HUM (hypervolume under manifold) values criterion measure and is used for ranking the features (in decreasing order of HUM values). HUM values are the extension of the AUC values for more than two classes.
+  This function calculates the HUM (hypervolume under manifold) feature values with the exhaustive search, i.e. for all combinations of the defined number of categories from the whole set of available categories. The function is used for ranking the features (in decreasing order of HUM values). HUM values are the extension of the AUC values for more than two classes.
   It can handle only numerical values.
   It computes a HUM value and returns a \dQuote{List} object, consisting of HUM value and the best permutation of class labels in \dQuote{seq} vector. This \dQuote{seq} vector can be passed to the function \code{\link{CalculateHUM_ROC}} for the calculating the coordinates of the 2D or 3D ROC.
 }
@@ -22,7 +22,7 @@ CalculateHUM_Ex(data,indexF,indexClass,allLabel,amountL)
   \item{indexClass}{a numeric or character value, containing the column number or column name of the class labels.
   }
   \item{allLabel}{a character vector, containing the column names of the class labels, selected for the analysis.}
-  \item{amountL}{a character vector, containing the column names of the class labels, selected for the analysis.}
+  \item{amountL}{a number of the class categories to search for all the possible combinations.}
 }
 
 \details{

@@ -45,8 +45,8 @@ CalculateHUM_ROC<-function(data,indexF,indexClass,indexLabel,seq)
     thresholds <- sort(unique(dataV[indexUnion]))
     thresholds=(c(-Inf, thresholds) + c(thresholds, +Inf))/2
 
-    #out=CalcROC(s_data,seq[,indexF[i]], thresholds)
-    out=CalcROC(s_data,seq[,i], thresholds)
+    out=CalcROC(s_data,seq[,indexF[i]], thresholds)
+    #out=CalcROC(s_data,seq[,i], thresholds)
 
     Sp=c(Sp,list(out$Sp))
     Sn=c(Sn,list(out$Sn))

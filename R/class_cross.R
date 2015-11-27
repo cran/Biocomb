@@ -48,9 +48,21 @@ select.process <- function(dattable,method="InformationGain",disc.method="MDL",t
   }
   #auc------------------
   if (method=="auc"){
+    aucs.all=rep(-1,ncol(dattable)-1)
+    if(length(attrs.nominal)>0)
+    {
+      aucs <- compute.aucs(dattable[,-attrs.nominal,drop=FALSE])
 
-  aucs <- compute.aucs(dattable)
-  sel.feat <- order(aucs[,2],decreasing=T)[1:min(c(max.no.features),nrow(aucs))]
+      aucs.all[-attrs.nominal]=aucs[,2]
+    }
+    else
+    {
+      aucs <- compute.aucs(dattable)
+      aucs.all=aucs[,2]
+    }
+
+
+  sel.feat <- order(aucs.all,decreasing=T)[1:min(c(max.no.features),length(aucs.all))]
   }
   #----------------HUM
   if (method=="HUM"){
@@ -59,21 +71,25 @@ select.process <- function(dattable,method="InformationGain",disc.method="MDL",t
     indexClass=ncol(dattable)
     indexLabel=levels(dattable[,indexClass])
 
-    out=CalculateHUM_seq(dattable,indexF,indexClass,indexLabel)
-
-    sel.feat <- order(out$HUM,decreasing=T)[1:min(c(max.no.features),length(out$HUM))]
+    index=setdiff(indexF,attrs.nominal)
+    out=CalculateHUM_seq(dattable,indexF[index],indexClass,indexLabel)
+    out.all=rep(-1,ncol(dattable)-1)
+    out.all[index]=out$HUM
+    sel.feat <- order(out.all,decreasing=T)[1:min(c(max.no.features),length(out.all))]
   }
   #CFS-----------------------
   if (method=="CFS"){
-    sel.feat <- cfs(as.formula(paste(names(dattable)[ncol(dattable)]," ~ .")), dattable)
-    sel.feat<-sapply(sel.feat, function(z) which(names(dattable)==z))
-    sel.feat=sel.feat[1:min(c(max.no.features,length(sel.feat)))]
+    sel.feat=select.cfs(dattable)
+    if(length(sel.feat)==0)
+      sel.feat=numeric()
+    else
+      sel.feat=sel.feat[1:min(c(max.no.features,nrow(sel.feat))),2]
   }
   #Relief---------------------
   if (method=="Relief"){
-    val <- relief(as.formula(paste(names(dattable)[ncol(dattable)]," ~ .")), dattable,neighbours.count = 5, sample.size = 10)
-
-    sel.feat <- order(val[[1]],decreasing=T)[1:min(c(max.no.features),nrow(val))]
+    #val <- relief(as.formula(paste(names(dattable)[ncol(dattable)]," ~ .")), dattable,neighbours.count = 5, sample.size = 10)
+    sel.feat<-select.relief(dattable)
+    sel.feat=sel.feat[1:min(c(max.no.features,nrow(sel.feat))),3]
   }
   #InformationGain---------------
   if(method=="InformationGain")

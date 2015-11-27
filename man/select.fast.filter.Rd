@@ -14,7 +14,7 @@ select.fast.filter(matrix,disc.method,threshold,attrs.nominal)
 \arguments{
   \item{matrix}{a dataset, a matrix of feature values for several cases, the last column is for the class labels. Class labels could be numerical or character values. The maximal number of classes is ten.}
   \item{disc.method}{a method used for feature discretization.The discretization options include minimal description length (MDL), equal frequency and equal interval width methods.}
-  \item{threshold}{a numeric threshold value for the corellation of feature with class to be included in the final subset.}
+  \item{threshold}{a numeric threshold value for the correlation of feature with class to be included in the final subset.}
   \item{attrs.nominal}{a numerical vector, containing the column numbers of the nominal features, selected for the analysis.}
 }
 \details{

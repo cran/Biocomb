@@ -6,7 +6,7 @@
  Select the subset of features
 }
 \description{
-  This function selects the subset of features using the wrapper method with decision tree algorithm and forward search strategy. It can handle both numerical and nominal values. The wrapper method makes use of the classification algoritm in order to estimate the quality measure of the feature subset. The method uses the built-in cross-validation procedure to estimate the accuracy of classification for the feature subset. At the first step of the method the one-feature subset is selected according to the quality measure. In the following steps the subset is incrementally extended according to the forward search strategy until the stopping criterion is met.
+  This function selects the subset of features using the wrapper method with decision tree algorithm and forward search strategy. It can handle both numerical and nominal values. The wrapper method makes use of the classification algorithm in order to estimate the quality measure of the feature subset. The method uses the built-in cross-validation procedure to estimate the accuracy of classification for the feature subset. At the first step of the method the one-feature subset is selected according to the quality measure. In the following steps the subset is incrementally extended according to the forward search strategy until the stopping criterion is met.
   The result is in the form of character vector with the names of the selected features. This function is used internally to perform the classification with feature selection using the function \dQuote{classifier.loop} with argument \dQuote{CorrSF} for feature selection.
 }
 \usage{

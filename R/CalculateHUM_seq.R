@@ -44,7 +44,7 @@ CalculateHUM_seq<-function(data,indexF,indexClass,indexLabel)
 
     #out=CalcGene(s_data,seq$ix, prodValue)
 
-    #claculate the threshold values for plot of 2D ROC and 3D ROC
+    #calculate the threshold values for plot of 2D ROC and 3D ROC
     thresholds <- sort(unique(dataV[indexUnion]))
     thresholds=(c(-Inf, thresholds) + c(thresholds, +Inf))/2
 

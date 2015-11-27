@@ -34,7 +34,7 @@ attrs.nominal=numeric(),delThre=0.2)
 
   A returned list consists of the the following fields:
   \item{data}{a processed dataset}
-  \item{flag.miss}{logical value; if TRUE the processing is succesful, if FALSE the input dataset is returned without processing.}
+  \item{flag.miss}{logical value; if TRUE the processing is successful, if FALSE the input dataset is returned without processing.}
   }
 
 \references{

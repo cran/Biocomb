@@ -28,7 +28,7 @@ select.inf.gain(matrix,disc.method,attrs.nominal)
   The data can be provided with reasonable number of missing values that must be at first preprocessed with one of the imputing methods in the function  \code{\link{input_miss}}.
   A returned list consists of the the following fields:
   \item{Biomarker}{a character vector of feature names}
-  \item{Information.Gain}{a numeric vector of chi-squared values for the features}
+  \item{Information.Gain}{a numeric vector of Information gain values for the features}
   \item{NumberFeature}{a numerical vector of the positions of the features in the dataset}
   }
 

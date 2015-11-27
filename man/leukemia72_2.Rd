@@ -9,8 +9,7 @@
   Leukemia dataset includes the bone marrow samples obtained from acute leukemia
 patients at the time of diagnosis: 25 acute myeloid leukemia (AML) samples; 9
 T-lineage acute lymphoblastic leukemia (ALL) samples; and 38 B-lineage ALL
-samples. After preprocessing, the 100 genes with the largest variation across samples
-are selected.
+samples. After preprocessing, the 100 genes with the largest variation across samples are selected.
 }
 \usage{leukemia72_2}
 

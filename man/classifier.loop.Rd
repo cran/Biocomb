@@ -26,7 +26,7 @@ classifier.loop(dattable,classifiers=c("svm","lda","rf","nsc"),
   \item{classifiers}{the names of the classifiers.}
   \item{feature.selection}{a method of feature ranking or feature selection.}
   \item{disc.method}{a method used for feature discretization. There are three options "MDL","equal interval width","equal frequency". The discretization options "MDL" assigned to the minimal description length (MDL) discretization algorithm, which is a supervised algorithm. The last two options refer to the unsupervized discretization algorithms.}
-  \item{threshold}{a numeric threshold value for the corellation of feature with class to be included in the final subset. It is used by fast correlation-based filter method (FCBF)}
+  \item{threshold}{a numeric threshold value for the correlation of feature with class to be included in the final subset. It is used by fast correlation-based filter method (FCBF)}
   \item{threshold.consis}{a numeric threshold value for the inconsistency rate. It is used by Chi2 discretization algorithm.}
   \item{attrs.nominal}{a numerical vector, containing the column numbers of the nominal features, selected for the analysis.}
   \item{no.feat}{the maximal number of features to be selected.}

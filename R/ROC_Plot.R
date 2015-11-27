@@ -17,15 +17,15 @@ Calculate3D<-function(sel,Sn,Sp,S3,optSn,optSp,optS3,thresholds,HUM,name,print.o
   len=length(thresholds)
   z=matrix(S3[[sel]],len,len,byrow=TRUE)
   ym=matrix(Sp[[sel]],len,len,byrow=TRUE)
-  
+
   vrem=seq(1,length(Sn[[sel]]),by=len)
   x=Sn[[sel]][vrem]
   y=Sp[[sel]][1:len]
   xrow=unique(x)
   yrow=unique(y)
-  
+
   zz=matrix(0,length(xrow),length(yrow))
-  
+
   indexrow=NULL
   indexcol=NULL
   for(i in 1:length(xrow))
@@ -81,6 +81,7 @@ Calculate3D<-function(sel,Sn,Sp,S3,optSn,optSp,optS3,thresholds,HUM,name,print.o
   #--------
   if(length(which(loadedNamespaces()=="rgl"))!=0)
   {
+    clear3d()
   out=persp3d(xrow,yrow,zz,theta = 120, phi = 10, expand = 0.5,ticktype = "detailed",col="#CC00FFFF",
           ltheta = -120, shade = 0.75, border = NA, main=sel,xlab = name[1], ylab = name[2], zlab = name[3],
           xlim=c(0,1), ylim=c(0,1), zlim=c(0,1))

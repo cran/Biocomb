@@ -6,7 +6,7 @@
  simulated data
 }
 \description{
-  This data file consists of 300 objects with 10 features. The features x1-x5 are informative and define the cluster structure of the dataset. The clusters are generated in the two-dimensional space x1-x2. The values of the features x3-x5 are identically generated as for x2. Features values x1-x5 are normally distributed values with the same standard deviation and different mean values. Features x6-x10 are random variables uniformely distrubuted in the interval [0, 1] and present the uninformative features.
+  This data file consists of 300 objects with 10 features. The features x1-x5 are informative and define the cluster structure of the dataset. The clusters are generated in the two-dimensional space x1-x2. The values of the features x3-x5 are identically generated as for x2. Features values x1-x5 are normally distributed values with the same standard deviation and different mean values. Features x6-x10 are random variables uniformly distributed in the interval [0, 1] and present the uninformative features.
 }
 \usage{data_test}
 

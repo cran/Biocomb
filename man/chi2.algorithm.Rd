@@ -28,7 +28,7 @@ chi2.algorithm(matrix,attrs.nominal,threshold)
 
   A returned data.frame consists of the the following fields:
   \item{data.out}{the processed dataset without irrelevant features (features which have been\cr merged into a single interval)}
-  \item{subset}{a character vector of the selected features}
+  \item{subset}{a character vector of the selected feature names}
   }
 
 \references{
@@ -41,7 +41,7 @@ chi2.algorithm(matrix,attrs.nominal,threshold)
 
 \examples{
 # example for dataset without missing values
-p1=Sys.time()
+#p1=Sys.time()
 data(data_test)
 # not all features to select
 xdata=data_test[,c(1:6,ncol(data_test))]
@@ -50,7 +50,7 @@ xdata[,ncol(xdata)]<-as.factor(xdata[,ncol(xdata)])
 attrs.nominal=numeric()
 threshold=0
 out=chi2.algorithm(matrix=xdata,attrs.nominal=attrs.nominal,threshold=threshold)
-Sys.time()-p1
+#Sys.time()-p1
 }
 
 \keyword{feature selection}

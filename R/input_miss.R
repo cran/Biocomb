@@ -157,7 +157,7 @@ input_miss<-function(matrix,method.subst="near.value",attrs.nominal=numeric(),de
          },
          mean.value={
 
-            index.nominal=which(colnames(data)%in%colnames(data[,attrs.nominal,drop=FALSE]))
+            index.nominal=which(colnames(data)%in%colnames(matrix[,attrs.nominal,drop=FALSE]))
            if(length(index.nominal)>0)
            {
              index.number=setdiff(1:(dd[2]-1),index.nominal)
@@ -198,7 +198,7 @@ input_miss<-function(matrix,method.subst="near.value",attrs.nominal=numeric(),de
          },
          near.value={
 
-           index.nominal=which(colnames(data)%in%colnames(data[,attrs.nominal,drop=FALSE]))
+           index.nominal=which(colnames(data)%in%colnames(matrix[,attrs.nominal,drop=FALSE]))
            d.vrem=data[,-c(index.nominal,ncol(data))]
 
            #normalize the numeric data

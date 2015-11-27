@@ -26,7 +26,7 @@ compute.aucs(dattable)
   The data can be provided with reasonable number of missing values that must be at first preprocessed with one of the imputing methods in the function  \code{\link{input_miss}}.
   A returned data.frame consists of th the following fields:
   \item{Biomarker}{a character vector of feature names}
-  \item{AUC}{a numeric vector of chi-squared values for the features according to class}
+  \item{AUC}{a numeric vector of AUC values for the features according to class}
   \item{Positive class}{a numeric vector of positive class levels for two-class problem}
   }
 

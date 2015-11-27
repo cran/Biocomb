@@ -1,12 +1,13 @@
 compute.aucs <- function(dattable){
+
   labs <- dattable[,ncol(dattable)]
   aucvals <- rep(0,ncol(dattable)-1)
 
   val=levels(labs)
-  pos <- rep(val[2],ncol(dattable)-1)
+  #pos <- rep(val[2],ncol(dattable)-1)
+  pos<-factor(rep(val[2],ncol(dattable)-1),levels=val)
   if(length(val)==2)
   {
-    aucvals <- rep(0,ncol(dattable)-1)
     for (i in 1:(ncol(dattable)-1)){
       pred <- prediction(dattable[,i],labs)
       aucv <- performance(pred,"tpr", "fpr",measure="auc")
@@ -17,131 +18,30 @@ compute.aucs <- function(dattable){
       }
       aucvals[i] <- aucval
     }
-    auctab<-data.frame(names(dattable)[1:c(ncol(dattable)-1)],aucvals,pos)
+    auctab<-data.frame(names(dattable)[1:(ncol(dattable)-1)],aucvals,pos)
     names(auctab)<-c("Biomarker","AUC","Positive class")
   }
   else
   {
-  for (i in 1:(ncol(dattable)-1)){
-    aucval <- multiclass.roc(labs,dattable[,i])$auc
-    aucval2 <- multiclass.roc(labs,dattable[,i])$auc
-    if (aucval<aucval2){
-      aucval <- aucval2
+    for (i in 1:(ncol(dattable)-1)){
+      aucval <- multiclass.roc(labs,dattable[,i])$auc
+      aucval2 <- multiclass.roc(labs,dattable[,i])$auc
+      if (aucval<aucval2){
+        aucval <- aucval2
+      }
+      aucvals[i] <- aucval
     }
-    aucvals[i] <- aucval
-  }
-    auctab<-data.frame(names(dattable)[1:c(ncol(dattable)-1)],aucvals)
+    auctab<-data.frame(names(dattable)[1:(ncol(dattable)-1)],aucvals)
     names(auctab)<-c("Biomarker","AUC")
   }
 
   return(auctab)
 }
 
-fun1.chi<-function(data,class)
-{
-  int.list=NULL
-  d1=dim(data)
-  for(i in 1:d1[2])
-  {
-    alist=NULL
-    out=sort(data[,i],index.return=TRUE)
-    cl=class[out$ix]
-    out.unique=unique(out$x)
-    for(j in 1:length(out.unique))
-    {
-      index=which(out$x==out.unique[j])
-      alist=c(alist,list(list(var=out$ix[index],cl=cl[index])))
-    }
-    int.list=c(int.list,list(alist))
-  }
-
-  int.list
-}
-
-fun2.chi<-function(int.list,mat.int)
-{
-  dm=dim(mat.int)
-  till=length(int.list)
-
-  chi.stat=NULL
-
-  for(i in 1:till)
-  {
-    chi.vrem=numeric()
-
-    vrem=int.list[[i]]
-    for(j in 1:(length(vrem)-1))
-    {
-      for(ij in 1:2)
-      {
-        if((j>1)&&(ij==1))
-        {
-          mat.int[ij,]=mat.int[ij+1,]
-        }
-        else
-        {
-        res=table(vrem[[j+(ij-1)]]$cl)
-        mat.int[ij,]=rep(0,dm[2])
-        for(kj in 1:length(res))
-        {
-          mat.int[ij,names(res)[kj]]=res[kj]
-        }
-        }
-      }
-      chi.vrem=c(chi.vrem,check.stat(mat.int))
-    }
-    chi.stat=c(chi.stat,list(chi.vrem))
-  }
-  chi.stat
-}
-
-check.stat<-function(mat.int)
-{
-  dm=dim(mat.int)
-
-  row.sum=rowSums(mat.int)
-  col.sum=colSums(mat.int)
-  res=row.sum%*%t(col.sum)
-  res=res/sum(mat.int)
-
-  index=which(res==0)
-  res[index]=0.1
-
-  out=((mat.int-res)**2)/res
-  result=sum(out)
-  result
-}
-
-
-check.incons<-function(data,vrem.nominal,class)
-{
-  data.check=cbind(data,vrem.nominal)
-  data.check=t(data.check)
-  input=dim(data)[1]
-
-  incons=0
-  while(input>1)
-  {
-    vrem=data.check-data.check[,1]
-    out=sapply(1:dim(vrem)[2], function(z) all(vrem[,z]==0))
-    if(length(out[out])>1)
-    {
-      e.max=max(table(class[out]))
-      incons=incons+(length(out[out])-e.max)
-    }
-    class=class[!out]
-    input=input-length(out[out])
-    data.check=data.check[,!out,drop=FALSE]
-  }
-  incons=incons/dim(data)[1]
-
-  incons
-}
-
 chi2.algorithm<- function(matrix,attrs.nominal,threshold)
 {
   dd=dim(matrix)
-  
+
   if(length(attrs.nominal)>0)
   {
   for(i in 1:length(attrs.nominal))
@@ -149,7 +49,6 @@ chi2.algorithm<- function(matrix,attrs.nominal,threshold)
     matrix[,attrs.nominal[i]]=as.factor(matrix[,attrs.nominal[i]])
   }
   }
-
   #for inconsistency for nominal
   vrem.nominal=matrix[,attrs.nominal,drop=FALSE]
   if(length(attrs.nominal)>0)
@@ -160,7 +59,6 @@ chi2.algorithm<- function(matrix,attrs.nominal,threshold)
   }
   }
   #-------
-
   data=matrix[,-c(attrs.nominal,dd[2]),drop=FALSE]
   data.start=data
   class=matrix[,dd[2]]
@@ -172,8 +70,7 @@ chi2.algorithm<- function(matrix,attrs.nominal,threshold)
   mat.int=matrix(0,2,length(label))
   colnames(mat.int)=label
 
-
-  int.list=fun1.chi(data,class)
+  int.list=fun1_chi(data,class)
   int.list.start=int.list
 
   #Phase 1
@@ -181,24 +78,18 @@ chi2.algorithm<- function(matrix,attrs.nominal,threshold)
   df=length(label)-1
   chi.value=qchisq(1-sig.value, df=df)
 
-  chi.stat=fun2.chi(int.list,mat.int)
+  chi.stat=fun2_chi(int.list,mat.int)
   chi.stat.start=chi.stat
+  len_chi=sapply(chi.stat, function(z) length(z))
 
-  #threshold=(d1[1]-max(table(class))-1)/d1[1]
   incons=0
 
-  #flag.end=FALSE
   step=0.1
   delta=6
   shag=1
-
+  calc=0
   while(incons<=threshold)
   {
-    calc=0
-
-    #if(flag.end) break
-
-
     sig.value0=sig.value
 
     if(shag==delta)
@@ -216,245 +107,58 @@ chi2.algorithm<- function(matrix,attrs.nominal,threshold)
     }
     chi.value=qchisq(1-sig.value, df=df)
 
-
     check=sapply(chi.stat,function(z) length(z))
     if(all(check==0))
     {
       break
     }
 
+    out3=fun3_chi(chi.stat,int.list,data, chi.value, mat.int)
+    data=out3$data
+    chi.stat=out3$chi_stat
+    int.list=out3$int_list
 
-    for(irow in 1:d1[2])
-    {
-      while(TRUE)
-      {
-        #select the min element of chi.stat
-        check=length(chi.stat[[irow]])
-        if(check==0)
-        {
-          break
-        }
-
-
-    #cat(paste("Value",irow,"Value",icol,"\n"))
-        icol=which.min(chi.stat[[irow]]) #which interval
-        if(chi.stat[[irow]][icol]>chi.value)
-        {
-          break
-        }
-    vrem=int.list[[irow]]
-    #cat(paste("Value",length(vrem),"\n"))
-    vrem[[icol]]$var=c(vrem[[icol]]$var,vrem[[icol+1]]$var)
-    vrem[[icol]]$cl=c(vrem[[icol]]$cl,vrem[[icol+1]]$cl)
-
-    if(icol!=(length(vrem)-1))
-    {
-    for( i in (icol+1):(length(vrem)-1))
-    {
-      vrem[[i]]=vrem[[i+1]]
-      if(i==(length(vrem)-1)) break
-      chi.stat[[irow]][i]=chi.stat[[irow]][i+1]
-    }
-    }
-
-    vrem[[length(vrem)]]=NULL
-    chi.stat[[irow]]=chi.stat[[irow]][-length(vrem)]
-
-    #new chi values
-
-    for(j in (icol-1):icol)
-    {
-      if((j>0)&&(j<length(vrem)))
-      {
-        for(ij in 1:2)
-        {
-          res=table(vrem[[j+(ij-1)]]$cl)
-          mat.int[ij,]=rep(0,length(label))
-          for(kj in 1:length(res))
-          {
-            mat.int[ij,names(res)[kj]]=res[kj]
-          }
-        }
-        chi.stat[[irow]][j]=check.stat(mat.int)
-      }
-    }
-
-
-    data[vrem[[icol]]$var,irow]=data[vrem[[icol]]$var[1],irow]
-
-    int.list[[irow]]=vrem
-
+    incons=check_incons(data, vrem.nominal,class)
     calc=calc+1
-    #cat(paste("Iteration",calc,"\n"))
-      }
-    }
-
-
-
-    incons=check.incons(data,vrem.nominal,class)
-
-
   }
 
   #Phase 2
-  #data=matrix[,-c(attrs.nominal,dd[2])]
-  #class=matrix[,dd[2]]
-  #d1=dim(data)
   data=data.start
 
   sig.attr=rep(sig.value0,d1[2])
   chi.value=qchisq(1-sig.value0, df=df)
   chi.attr=rep(chi.value,d1[2])
 
-  #int.list=fun1.chi(data,class)
   int.list=int.list.start
-  #the initial chi.stat
-  #chi.stat=fun2.chi(int.list,mat.int)
   chi.stat=chi.stat.start
 
-  flag=rep(TRUE,d1[2])
-  #further
-  calc=0
-  while(TRUE)
-  {
-    if(all(!flag)) break
-  for(irow in 1:d1[2])
-  {
-    if(flag[irow])
-    {
-      int.list1=int.list[[irow]]
-      chi.stat1=chi.stat[[irow]]
-      data1=data[,irow]
-  while(TRUE)
-  {
-    #select the min element of chi.stat
-    check=length(chi.stat[[irow]])
-    if(check==0)
-    {
-      flag[irow]=FALSE
-      break
-    }
-    icol=which.min(chi.stat[[irow]]) #which interval
-    if(chi.stat[[irow]][icol]>chi.attr[irow])
-    {
-      break
-    }
-    vrem=int.list[[irow]]
-    vrem[[icol]]$var=c(vrem[[icol]]$var,vrem[[icol+1]]$var)
-    vrem[[icol]]$cl=c(vrem[[icol]]$cl,vrem[[icol+1]]$cl)
+  data=fun4_chi(chi.stat,int.list,data,vrem.nominal,chi.attr,sig.attr,class,mat.int,threshold,df,step,delta,shag)
 
-    if(icol!=(length(vrem)-1))
-    {
-      for( i in (icol+1):(length(vrem)-1))
-      {
-        vrem[[i]]=vrem[[i+1]]
-        if(i==(length(vrem)-1)) break
-        chi.stat[[irow]][i]=chi.stat[[irow]][i+1]
-      }
-    }
-
-    vrem[[length(vrem)]]=NULL
-    chi.stat[[irow]]=chi.stat[[irow]][-length(vrem)]
-
-    #new chi values
-    for(j in (icol-1):icol)
-    {
-      if((j>0)&&(j<length(vrem)))
-      {
-        for(ij in 1:2)
-        {
-          res=table(vrem[[j+(ij-1)]]$cl)
-          mat.int[ij,]=rep(0,length(label))
-          for(kj in 1:length(res))
-          {
-            mat.int[ij,names(res)[kj]]=res[kj]
-          }
-        }
-        chi.stat[[irow]][j]=check.stat(mat.int)
-      }
-    }
-
-    data[vrem[[icol]]$var,irow]=data[vrem[[icol]]$var[1],irow]
-
-    int.list[[irow]]=vrem
-
-    calc=calc+1
-    #cat(paste("Iteration",calc,"\n"))
-
-  }
-  #check.incons
-    incons=check.incons(data,vrem.nominal,class)
-
-    if(incons<=threshold)
-    {
-      sig.attr[irow]=sig.attr[irow]-step
-
-
-      chi.attr[irow]=qchisq(1-sig.attr[irow], df=df)
-    }
-    else
-    {
-      int.list[[irow]]=int.list1
-      chi.stat[[irow]]=chi.stat1
-      data[,irow]=data1
-      flag[irow]=FALSE
-    }
-    }
-  }
-    if(shag==delta)
-    {
-      step=step*0.1
-      delta=delta+9
-    }
-    shag=shag+1
-  }
   rr=sapply(1:d1[2],function(z) length(unique(data[,z])))
   data.out=data[,which(rr>1),drop=FALSE]
   data.out=cbind(data.out,matrix[,attrs.nominal,drop=FALSE])
-  
+
   return(list(data.out=data.out,subset=colnames(data.out)))
 }
 
 
 select.forward.Corr<- function(matrix,disc.method,attrs.nominal)
 {
-  evaluator <- function(subset) {
-    #correaltion evaluate
-    sum=0
-    out=0
-    len=length(subset)
-    for(i in 1:len)
-    {
-      sum=sum+CalcGain(m3[,subset[i]],m3[,ncol(m3)],TRUE)
-      if(len==1)
-      {
-        out=0
-      }
-      else
-      {
-      vrem=sapply(c(i:len),function(z) CalcGain(m3[,subset[z]],m3[,subset[i]],TRUE) )
-
-      out=out+sum(vrem[-1])
-      }
-    }
-    out=2*out #perhaps without len
-    CFS=sum/sqrt(out+len) #according to the formula
-    #cat(paste(subset,"\n"))
-    return(CFS)
-  }
-
   out=ProcessData(matrix,disc.method,attrs.nominal,FALSE)
   m3=out$m3
-  sel.feature=out$sel.feature
+
   dd=dim(m3)
   if(dd[2]>1)
   {
-  subset <- forward.search(names(m3)[-ncol(m3)], evaluator)
+  subset <- forward_path(0:(ncol(m3)-2),m3)
+  subset=subset+1
+  subset<-names(m3)[subset]
   }
   else
   {
     subset <- NULL
   }
+  return(subset)
 }
 
 select.forward.wrapper<- function(dattable)
@@ -462,7 +166,6 @@ select.forward.wrapper<- function(dattable)
   evaluator <- function(subset) {
     #k-fold cross validation
     results = sapply(1:k, function(i) {
-      #test.idx <- (splits >= (i - 1) / k) & (splits < i / k)
       test.idx <- testind[,i]
       train.idx <- !test.idx
       test <- dattable[test.idx, , drop=FALSE]
@@ -470,7 +173,6 @@ select.forward.wrapper<- function(dattable)
       tree <- rpart(as.simple.formula(subset, names(dattable)[ncol(dattable)]), train,method = "class")
       error.rate = sum(test[,ncol(dattable)] != predict(tree, test, type="c")) / nrow(test)
       return(1 - error.rate)
-      #val=FUN(subset,dattable,train,test)
     })
     return(mean(results))
   }
@@ -639,6 +341,25 @@ ProcessData<-function(matrix,disc.method,attrs.nominal,flag=FALSE)
   }
   }
   return (list(m3=m3,sel.feature=sel.feature))
+}
+
+select.cfs<-function(matrix)
+{
+val <- cfs(as.formula(paste(names(matrix)[ncol(matrix)]," ~ .")), matrix)
+val<-sapply(val, function(z) which(names(matrix)==z))
+info.val <- data.frame(names(matrix)[val],val)
+names(info.val) <- c("Biomarker","Index")
+return(info.val)
+}
+
+
+select.relief<-function(matrix)
+{
+val <- relief(as.formula(paste(names(matrix)[ncol(matrix)]," ~ .")), matrix,neighbours.count = 5, sample.size = 10)
+val <- sort(val[[1]],decreasing=T,index.return=TRUE)
+info.val <- data.frame(names(matrix)[val$ix[1:(ncol(matrix)-1)]],val$x,val$ix)
+names(info.val) <- c("Biomarker","Weights","NumberFeature")
+return(info.val)
 }
 
 select.inf.chi2<-function(matrix,disc.method,attrs.nominal)
