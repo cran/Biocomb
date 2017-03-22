@@ -4,7 +4,7 @@ CalculateHUM_ROC<-function(data,indexF,indexClass,indexLabel,seq)
   indexL=NULL
 
   label=levels(data[,indexClass])
-  if(is.null(label)) return
+  if(is.null(label)) return()
 
   for(i in 1:length(indexLabel))
   {

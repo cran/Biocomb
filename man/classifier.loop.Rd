@@ -15,7 +15,7 @@
 }
 \usage{
 classifier.loop(dattable,classifiers=c("svm","lda","rf","nsc"),
- feature.selection=c("aucs","InformationGain"),
+ feature.selection=c("auc","InformationGain"),
  disc.method="MDL",threshold=0.3, threshold.consis=0,
  attrs.nominal=numeric(), no.feat=20,flag.feature=TRUE,
  method.cross=c("leaveOneOut","sub-sampling","fold-crossval"))

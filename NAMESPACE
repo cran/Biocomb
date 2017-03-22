@@ -1,4 +1,4 @@
-useDynLib(Biocomb)
+useDynLib(Biocomb, .registration=TRUE)
 importFrom(Rcpp, evalCpp)
 
 importFrom(e1071,svm,naiveBayes)
@@ -15,15 +15,13 @@ import(gtools)
 import(rgl)
 
 import(MASS)
-
+import(nnet)
 import(randomForest)
 import(pROC)
 import(ROCR)
-import(discretization)
 import(arules)
 import(pamr)
 import(class)
-import(nnet)
 import(rpart)
 
 export(ProcessData,

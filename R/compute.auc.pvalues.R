@@ -72,6 +72,6 @@ compute.auc.random <- function(aucs,dattable,repetitions=10000,correction="none"
     pvalues.raw[i] <- max(c(length(subset(aucs.rand,aucs.rand>aucs[i]))/repetitions,minpv))
   }
   if (correction=="bonferroniholm"){return(bh.correction(pvalues.raw))}
-  if (correction=="bonferroni"){return(pvalues.raw/length(pvalues.raw))}
+  if (correction=="bonferroni"){return(ifelse(pvalues.raw*length(pvalues.raw)>1,1,pvalues.raw*length(pvalues.raw)))}
   return(pvalues.raw)#####nur show the p-values
 }

@@ -3,7 +3,7 @@ CalculateHUM_seq<-function(data,indexF,indexClass,indexLabel)
   indexL=NULL
 
   label=levels(data[,indexClass])
-  if(is.null(label)) return
+  if(is.null(label)) return()
 
   for(i in 1:length(indexLabel))
   {

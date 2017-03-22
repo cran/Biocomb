@@ -14,8 +14,8 @@ They can deal with both numerical and nominal features. Biocomb includes functio
 \tabular{ll}{
 Package: \tab Biocomb\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2015-10-14\cr
+Version: \tab 0.3\cr
+Date: \tab 2016-08-14\cr
 License: \tab GPL (>= 3)\cr
 }
 Biocomb package presents the functions for two stages of data mining process: feature selection and classification. One of the main functions of Biocomb is the \code{\link{select.process}} function. It presents the infrostructure to perform the feature ranking or feature selection for the data set with two or more class labels. Functions \code{\link{compute.aucs}}, \code{\link{select.inf.gain}}, \code{\link{select.inf.symm}} and \code{\link{select.inf.chi2}} calculate the different criterion measure for each feature in the dataset. Function \code{\link{select.fast.filter}} realizes the fast correlation-based filter method. Function \code{\link{chi2.algorithm}} performes Chi2 discretization algorithms with feature selection. Function \code{\link{select.forward.Corr}} is designed for the sequential forward features search according to the correlation measure. Function \code{\link{select.forward.wrapper}} is the realization of the wrapper feature selection method with sequential forward search strategy.
