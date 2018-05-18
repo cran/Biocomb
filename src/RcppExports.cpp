@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // fun1_chi
 List fun1_chi(DataFrame data, CharacterVector classI);
-RcppExport SEXP Biocomb_fun1_chi(SEXP dataSEXP, SEXP classISEXP) {
+RcppExport SEXP _Biocomb_fun1_chi(SEXP dataSEXP, SEXP classISEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // fun2_chi
 List fun2_chi(List int_l, NumericMatrix mat_int);
-RcppExport SEXP Biocomb_fun2_chi(SEXP int_lSEXP, SEXP mat_intSEXP) {
+RcppExport SEXP _Biocomb_fun2_chi(SEXP int_lSEXP, SEXP mat_intSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // fun3_chi
 List fun3_chi(List chi_s, List int_l, DataFrame datain, double chi_value, NumericMatrix mat_int);
-RcppExport SEXP Biocomb_fun3_chi(SEXP chi_sSEXP, SEXP int_lSEXP, SEXP datainSEXP, SEXP chi_valueSEXP, SEXP mat_intSEXP) {
+RcppExport SEXP _Biocomb_fun3_chi(SEXP chi_sSEXP, SEXP int_lSEXP, SEXP datainSEXP, SEXP chi_valueSEXP, SEXP mat_intSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -46,7 +46,7 @@ END_RCPP
 }
 // check_incons
 double check_incons(DataFrame data, DataFrame vrem_nom, CharacterVector cl);
-RcppExport SEXP Biocomb_check_incons(SEXP dataSEXP, SEXP vrem_nomSEXP, SEXP clSEXP) {
+RcppExport SEXP _Biocomb_check_incons(SEXP dataSEXP, SEXP vrem_nomSEXP, SEXP clSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -59,7 +59,7 @@ END_RCPP
 }
 // fun4_chi
 DataFrame fun4_chi(List chi_s, List int_l, DataFrame datain, DataFrame vrem_nominal, NumericVector chi_attr, NumericVector sig_attr, CharacterVector cl, NumericMatrix mat_int, double threshold, int df, double step, int delta, int shag);
-RcppExport SEXP Biocomb_fun4_chi(SEXP chi_sSEXP, SEXP int_lSEXP, SEXP datainSEXP, SEXP vrem_nominalSEXP, SEXP chi_attrSEXP, SEXP sig_attrSEXP, SEXP clSEXP, SEXP mat_intSEXP, SEXP thresholdSEXP, SEXP dfSEXP, SEXP stepSEXP, SEXP deltaSEXP, SEXP shagSEXP) {
+RcppExport SEXP _Biocomb_fun4_chi(SEXP chi_sSEXP, SEXP int_lSEXP, SEXP datainSEXP, SEXP vrem_nominalSEXP, SEXP chi_attrSEXP, SEXP sig_attrSEXP, SEXP clSEXP, SEXP mat_intSEXP, SEXP thresholdSEXP, SEXP dfSEXP, SEXP stepSEXP, SEXP deltaSEXP, SEXP shagSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -82,7 +82,7 @@ END_RCPP
 }
 // forward_path
 NumericVector forward_path(NumericVector features, DataFrame m3);
-RcppExport SEXP Biocomb_forward_path(SEXP featuresSEXP, SEXP m3SEXP) {
+RcppExport SEXP _Biocomb_forward_path(SEXP featuresSEXP, SEXP m3SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -94,7 +94,7 @@ END_RCPP
 }
 // CalcGene
 List CalcGene(List s_data, NumericMatrix seqAll, int prodValue, NumericVector thresholds);
-RcppExport SEXP Biocomb_CalcGene(SEXP s_dataSEXP, SEXP seqAllSEXP, SEXP prodValueSEXP, SEXP thresholdsSEXP) {
+RcppExport SEXP _Biocomb_CalcGene(SEXP s_dataSEXP, SEXP seqAllSEXP, SEXP prodValueSEXP, SEXP thresholdsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -108,7 +108,7 @@ END_RCPP
 }
 // CalcROC
 List CalcROC(List s_data, NumericVector seq, NumericVector thresholds);
-RcppExport SEXP Biocomb_CalcROC(SEXP s_dataSEXP, SEXP seqSEXP, SEXP thresholdsSEXP) {
+RcppExport SEXP _Biocomb_CalcROC(SEXP s_dataSEXP, SEXP seqSEXP, SEXP thresholdsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -118,4 +118,21 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(CalcROC(s_data, seq, thresholds));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_Biocomb_fun1_chi", (DL_FUNC) &_Biocomb_fun1_chi, 2},
+    {"_Biocomb_fun2_chi", (DL_FUNC) &_Biocomb_fun2_chi, 2},
+    {"_Biocomb_fun3_chi", (DL_FUNC) &_Biocomb_fun3_chi, 5},
+    {"_Biocomb_check_incons", (DL_FUNC) &_Biocomb_check_incons, 3},
+    {"_Biocomb_fun4_chi", (DL_FUNC) &_Biocomb_fun4_chi, 13},
+    {"_Biocomb_forward_path", (DL_FUNC) &_Biocomb_forward_path, 2},
+    {"_Biocomb_CalcGene", (DL_FUNC) &_Biocomb_CalcGene, 4},
+    {"_Biocomb_CalcROC", (DL_FUNC) &_Biocomb_CalcROC, 3},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_Biocomb(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

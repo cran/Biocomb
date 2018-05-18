@@ -1,10 +1,10 @@
-6608a60821518f021545ceab038aeef2 *DESCRIPTION
+16ffd543ecd087118f4f537c0559ca27 *DESCRIPTION
 de6868a6e8b6854d9f403225902993d7 *NAMESPACE
 b658d08a58ae3b2af35ca100ac6b5176 *R/CalculateHUM_Ex.R
 63f100362a108b6cb1baa3747c744e21 *R/CalculateHUM_ROC.R
 0cec94e41a426c795ac8fffac22dbea4 *R/CalculateHUM_seq.R
 a40e2565bf957318b08a6ebd929e3eb2 *R/ROC_Plot.R
-40465e95d59cccd6a1c773ca1808244e *R/RcppExports.R
+838da5583ac1ce6e0b3a145e0a7b79d9 *R/RcppExports.R
 da00860ba5aed37f79eb364a28e6fc4b *R/Sub.filename.R
 f66d01f12f75dcdb4e6e6efa6bddde15 *R/char.to.numeric.R
 c984308c9672f3b160812784bcc94f9a *R/class_cross.R
@@ -14,7 +14,7 @@ e4906dfebe53e81ab832a12e4a7a1de5 *R/compute.auc.pvalues.R
 a7781ec1a07d319debe26dae4dfa85f9 *R/plotClass.result.R
 a4a3b992555e12c8e2ef4b00ff64f68b *R/plotRoc.curves.R
 d2c42778bb7088524d47b9589899f989 *R/rcc.aac.R
-86781482d356c95e857ea6d7d1309a24 *R/select.feature.info.R
+cb3561b65f7dde5735a6ce349ec17cf3 *R/select.feature.info.R
 8370901f08fec2830fdf986d1f9f169c *data/data_test.txt.gz
 cbf9a7c1ff3828bed6eb29e136aa5cff *data/datasetF6.txt.gz
 6f7de1675482986996e8c8d07423473f *data/leukemia72.txt.gz
@@ -55,8 +55,7 @@ b2606e9c3a9d5ffb59e114a9ef46ce57 *man/select.inf.gain.Rd
 680c744aeb345907509c9188c5a3641e *man/select.inf.symm.Rd
 8daa5a298f02fb7870ffb420e50e3545 *man/select.process.Rd
 5286c50ca9aeab41f4dfef3200036d0c *man/select.relief.Rd
-4010d31ff722b01e9273373f0827ad50 *src/Biocomb_init.c
 1b9b88b9b882f90994b052613e2eb5e0 *src/CHI2.cpp
 b7bb1993a5d9411d412375481da5d11a *src/CorrF.cpp
 5ea5d83a67364ccf3885ee077c3bfecc *src/HUMseq.cpp
-f61389729ddc20c9cc8a97687b0f30da *src/RcppExports.cpp
+049c811eed1401402e9543d1738e8397 *src/RcppExports.cpp

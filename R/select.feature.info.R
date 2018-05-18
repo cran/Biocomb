@@ -304,7 +304,7 @@ ProcessData<-function(matrix,disc.method,attrs.nominal,flag=FALSE)
     {
       if(!(i%in%attrs.nominal))
       {
-        m3[,i] <- discretize(matrix[,i], method="frequency",categories=3)
+        m3[,i] <- discretize(matrix[,i], breaks=3)
       }
     }
   }
@@ -316,7 +316,7 @@ ProcessData<-function(matrix,disc.method,attrs.nominal,flag=FALSE)
     {
       if(!(i%in%attrs.nominal))
       {
-        m3[,i] <- discretize(matrix[,i], categories=3)
+        m3[,i] <- discretize(matrix[,i], breaks=3,method="interval")
       }
     }
   }

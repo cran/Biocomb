@@ -2,8 +2,8 @@ Package: Biocomb
 Type: Package
 Title: Feature Selection and Classification with the Embedded
         Validation Procedures for Biomedical Data Analysis
-Version: 0.3
-Date: 2017-03-20
+Version: 0.4
+Date: 2018-05-18
 Author: Natalia Novoselova,Junxi Wang,Frank Pessler,Frank Klawonn
 Maintainer: Natalia Novoselova <novos65@mail.ru>
 Description: Contains functions for the data analysis with the emphasis on biological data, including several algorithms for feature ranking, feature selection, classification
@@ -21,6 +21,6 @@ LinkingTo: Rcpp
 Depends: R (>= 2.13.0),gtools,Rcpp (>= 0.12.1)
 LazyLoad: yes
 NeedsCompilation: yes
-Packaged: 2017-03-22 15:30:26 UTC; novosel
+Packaged: 2018-05-18 18:13:37 UTC; novosel
 Repository: CRAN
-Date/Publication: 2017-03-22 16:29:07 UTC
+Date/Publication: 2018-05-18 18:33:55 UTC
